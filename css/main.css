@@ -1,0 +1,72 @@
+html,
+body {
+  height: 100%;
+  background-image: url('../img/background_face_recognition.png');
+  background-position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: darken #000;
+
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.kotak{
+    background-color: #001128;
+    box-shadow: 50px 50px 50px rgba(0.3, 0, 0, 0.3);
+    color: #E0E0E0;
+    opacity: 95%;
+}
+
+.title{
+    text-shadow: 2px 2px 5px rgba(0,17,40);
+    color: #E0E0E0;
+}
+
+
+/* Kustom tombol */
+.custom-file {
+    position: relative;
+    width: 100%;
+}
+
+.custom-file-input {
+    visibility: hidden;
+    position: absolute;
+}
+
+.custom-file-label {
+    display: block;
+    background-color: #001128; /* Warna Background */
+    color: #02509c; /* Warna teks */
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    border: 2px solid #E0E0E0;
+}
+
+.custom-file-label:hover {
+    background-color: #001128;
+    color: #FFD700;
+}

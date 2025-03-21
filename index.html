@@ -1,0 +1,107 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+    <title>Usia dan Gender Detector Image</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .modal-dialog-start {
+                /* position: fixed; */
+                left: 0;
+                top: 0;
+                transform: translateY(-50%);
+                margin: 0;
+                max-width: 400px; /* Atur lebar sesuai kebutuhan */
+            }
+
+            .modal-content {
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(5px);
+                border-radius: 10px;
+            }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="position-relative container-fluid">
+        <div class="position-absolute top-50 start-50 translate-middle-x"> 
+            <h1 class="mb-3 fw-bold w-100 title" style="margin-top: 25%;">Gender & Age Detector Image</h1>
+             <div class="container-fluid form-signin kotak p-5 h-50 rounded rounded-5">
+                    <img class="mb-4 mx-auto d-block w-75" src="img/beneget.png" alt="">
+                           <div style="padding-bottom: 20px;" class="text-center">Please choose the photo for detection</div>
+                           <!-- <div class="input-group mb-3">
+                                <input type="file" name="photo" class="form-control" id="inputGroupFile01" onchange="javascript:detect_faces()">
+                           </div> -->
+                           <div class="custom-file mb-3">
+                            <input type="file" id="inputGroupFile01" name="photo"  class="custom-file-input" onchange="javascript:detect_faces()">
+                            <label for="inputGroupFile01" class="custom-file-label">Choose File</label>
+                           
+                        </div>
+                </div>
+                
+        </div>
+    </div>
+    <div class="fixed-bottom container-fluid bg-dark">  <a href="#" class="text-decoration-none fw-bold text-info m-5 text-center mb-5">Designed by <b>Muhammad Razan Rizqullah</b></a></div>
+    <!-- <div id="detect-result" class="container-fluid" style="display: none; font-family: monospace; background-color: #606a94; color: white; margin-top: 20px; max-width: 600px; padding: 10px;"></div> -->
+    <!-- Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-start">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultModalLabel">Detection Result</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="detect-result"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+
+<script>
+function detect_faces() {
+    var photo = document.getElementsByName("photo")[0].files[0];
+    
+    detect(photo, function(result) {
+        var output = document.getElementById("detect-result");
+        output.innerHTML = formatResult(result);
+        
+        // Tampilkan modal Bootstrap
+        var modal = new bootstrap.Modal(document.getElementById("resultModal"));
+        modal.show();
+    });
+}
+
+function formatResult(data) {
+    if (!Array.isArray(data)) return "Invalid data format";
+    
+    return data.map(face => `
+        <div class="face-result">
+            <p><strong>Gender:</strong> ${face.gender.value} (Confidence: ${(face.gender.probability * 100).toFixed(2)}%)</p>
+            <p><strong>Age:</strong> ${face.age.toFixed(1)}</p>
+            <p><strong>Age Group:</strong> ${face.age_group}</p>
+            <p><strong>Expressions:</strong></p>
+            <ul>
+                ${face.expression.map(exp => `<li>${exp.value} (Confidence: ${(exp.probability * 100).toFixed(2)}%)</li>`).join("")}
+            </ul>
+           
+    `).join("<hr>");
+}
+
+
+</script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/detection.js"></script>
+</html>
+<!-- <p><strong>Rectangle:</strong></p>
+<ul>
+    <li>Left: ${face.rectangle.left}</li>
+    <li>Top: ${face.rectangle.top}</li>
+    <li>Right: ${face.rectangle.right}</li>
+    <li>Bottom: ${face.rectangle.bottom}</li>
+</ul>
+</div> -->
